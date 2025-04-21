@@ -1,7 +1,7 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:fluttercleanprojectstarter/src/features/todo/presentation/pages/pages.dart';
+import 'package:todopractise/src/features/todo/presentation/pages/pages.dart';
 
 import '/src/core/error/error.dart';
 import 'routes.dart';

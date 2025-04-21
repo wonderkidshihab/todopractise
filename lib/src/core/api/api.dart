@@ -1,8 +1,8 @@
 library;
 
 import 'package:dio/dio.dart';
-import 'package:fluttercleanprojectstarter/src/core/api/base_response.dart';
-import 'package:fluttercleanprojectstarter/src/core/error/error.dart';
+import 'package:todopractise/src/core/api/base_response.dart';
+import 'package:todopractise/src/core/error/error.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class ApiInterface {

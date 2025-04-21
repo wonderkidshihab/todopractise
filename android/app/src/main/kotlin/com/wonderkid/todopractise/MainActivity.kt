@@ -1,4 +1,4 @@
-package com.example.fluttercleanprojectstarter
+package com.wonderkid.todopractise
 
 import io.flutter.embedding.android.FlutterActivity
 
