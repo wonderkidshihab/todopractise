@@ -8,4 +8,6 @@ abstract interface class TodoRepository {
   Future<Either<Failure, void>> addTodo(Todo todo);
   Future<Either<Failure, void>> updateTodo(Todo todo);
   Future<Either<Failure, void>> deleteTodo(String id);
+
+  const TodoRepository();
 }

@@ -12,6 +12,12 @@ import 'package:todopractise/src/core/bloc/app_observer.dart';
 import 'package:todopractise/src/features/todo/data/implements/todo_repository_impl.dart';
 import 'package:todopractise/src/features/todo/data/sources/todo_local_data_source.dart';
 import 'package:todopractise/src/features/todo/domain/repositories/todo_repository.dart';
+import 'package:todopractise/src/features/todo/domain/usecases/add_todo_usecase.dart';
+import 'package:todopractise/src/features/todo/domain/usecases/delete_todo_usecase.dart';
+import 'package:todopractise/src/features/todo/domain/usecases/get_all_todos_usecase.dart';
+import 'package:todopractise/src/features/todo/domain/usecases/get_todo_usecase.dart';
+import 'package:todopractise/src/features/todo/domain/usecases/update_todo_usecase.dart';
+import 'package:todopractise/src/features/todo/presentation/bloc/todo_bloc.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -34,7 +40,22 @@ class DependencyInjection {
     );
     sl.registerSingleton<Database>(database);
     // Register Todo Feature dependencies
-    sl.registerSingleton<TodoLocalDataSource>(TodoLocalDataSourceImpl(database: sl<Database>()));
+    sl.registerFactory<TodoLocalDataSource>(() => TodoLocalDataSourceImpl(database: sl<Database>()));
     sl.registerFactory<TodoRepository>(() => TodoRepositoryImpl(localDataSource: sl<TodoLocalDataSource>()));
+    sl.registerFactory<GetAllTodosUsecase>(() => GetAllTodosUsecase(repository: sl<TodoRepository>()));
+    sl.registerFactory<GetTodoUsecase>(() => GetTodoUsecase(repository: sl<TodoRepository>()));
+    sl.registerFactory<AddTodoUsecase>(() => AddTodoUsecase(repository: sl<TodoRepository>()));
+    sl.registerFactory<UpdateTodoUsecase>(() => UpdateTodoUsecase(repository: sl<TodoRepository>()));
+    sl.registerFactory<DeleteTodoUsecase>(() => DeleteTodoUsecase(repository: sl<TodoRepository>()));
+    // Register Bloc
+    sl.registerFactory(
+      () => TodoBloc(
+        getTodosUsecase: sl<GetAllTodosUsecase>(),
+        getTodoUsecase: sl<GetTodoUsecase>(),
+        addTodoUsecase: sl<AddTodoUsecase>(),
+        updateTodoUsecase: sl<UpdateTodoUsecase>(),
+        deleteTodoUsecase: sl<DeleteTodoUsecase>(),
+      ),
+    );
   }
 }
