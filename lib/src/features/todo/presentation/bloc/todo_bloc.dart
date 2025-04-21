@@ -58,17 +58,50 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddTodo(AddTodoEvent event, Emitter<TodoState> emit) async {
-    final result = await _addTodoUsecase(event.todo);
-    emit(result.fold((failure) => TodoError(message: failure.message), (_) => TodoLoaded(todos: [event.todo])));
+    final result = await _addTodoUsecase(
+      Todo(
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        createdAt: event.createdAt,
+        updatedAt: event.updatedAt,
+        isCompleted: event.isCompleted,
+      ),
+    );
+    emit(
+      result.fold(
+        (failure) => TodoError(message: failure.message),
+        (_) => TodoAdded(message: "Todo added successfully"),
+      ),
+    );
   }
 
   Future<void> _onUpdateTodo(UpdateTodoEvent event, Emitter<TodoState> emit) async {
-    final result = await _updateTodoUsecase(event.todo);
-    emit(result.fold((failure) => TodoError(message: failure.message), (_) => TodoLoaded(todos: [event.todo])));
+    final result = await _updateTodoUsecase(
+      UpdateTodoParams(
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        createdAt: event.createdAt,
+        updatedAt: event.updatedAt,
+        isCompleted: event.isCompleted,
+      ),
+    );
+    emit(
+      result.fold(
+        (failure) => TodoError(message: failure.message),
+        (_) => TodoUpdated(message: "Todo updated successfully"),
+      ),
+    );
   }
 
   Future<void> _onDeleteTodo(DeleteTodoEvent event, Emitter<TodoState> emit) async {
     final result = await _deleteTodoUsecase(event.id);
-    emit(result.fold((failure) => TodoError(message: failure.message), (_) => TodoLoaded(todos: [])));
+    emit(
+      result.fold(
+        (failure) => TodoError(message: failure.message),
+        (_) => TodoDeleted(message: "Todo deleted successfully"),
+      ),
+    );
   }
 }

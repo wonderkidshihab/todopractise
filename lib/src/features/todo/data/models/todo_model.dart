@@ -60,7 +60,7 @@ class TodoModel extends Todo {
       'description': description,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'isCompleted': isCompleted,
+      'isCompleted': isCompleted ? 1 : 0,
     };
   }
 
@@ -71,7 +71,7 @@ class TodoModel extends Todo {
       description: map['description'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
-      isCompleted: map['isCompleted'] as bool,
+      isCompleted: map['isCompleted'] == 1,
     );
   }
 

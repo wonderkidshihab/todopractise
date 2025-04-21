@@ -9,7 +9,7 @@ class AddTodoUsecase extends UseCase<Either<Failure, void>, Todo> {
   const AddTodoUsecase({required TodoRepository repository}) : _repository = repository;
 
   @override
-  Future<Either<Failure, void>> call(Todo params) async {
-    return await _repository.addTodo(params);
+  Future<Either<Failure, void>> call(Todo todo) async {
+    return await _repository.addTodo(todo);
   }
 }
