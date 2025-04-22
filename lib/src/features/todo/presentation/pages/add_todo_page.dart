@@ -35,31 +35,37 @@ class _AddTodoPageState extends State<AddTodoPage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(title: const Text('Add Todo')),
-            body: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(labelText: 'Title'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a title';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _descriptionController,
-                    decoration: const InputDecoration(labelText: 'Description'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a description';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  spacing: 16,
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(labelText: 'Title'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a title';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(labelText: 'Description', alignLabelWithHint: true),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a description';
+                        }
+                        return null;
+                      },
+                      minLines: 3,
+                      maxLines: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: Container(
@@ -82,6 +88,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 },
                 label: const Text('Save'),
                 icon: const Icon(Icons.save),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  minimumSize: const Size(double.infinity, 50),
+                  textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           );

@@ -20,6 +20,15 @@ class TodoLoaded extends TodoState {
   List<Object> get props => [todos];
 }
 
+class SingleTodoLoaded extends TodoState {
+  final Todo todo;
+
+  const SingleTodoLoaded({required this.todo});
+
+  @override
+  List<Object> get props => [todo];
+}
+
 class TodoError extends TodoState {
   final String message;
 

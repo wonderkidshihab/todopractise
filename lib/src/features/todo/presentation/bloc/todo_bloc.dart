@@ -54,7 +54,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onGetTodo(GetTodoEvent event, Emitter<TodoState> emit) async {
     final result = await _getTodoUsecase(event.id);
-    emit(result.fold((failure) => TodoError(message: failure.message), (todo) => TodoLoaded(todos: [todo])));
+    emit(result.fold((failure) => TodoError(message: failure.message), (todo) => SingleTodoLoaded(todo: todo)));
   }
 
   Future<void> _onAddTodo(AddTodoEvent event, Emitter<TodoState> emit) async {
